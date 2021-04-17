@@ -16,59 +16,6 @@ struct Node
     struct Node* next;
 };
 
-void insertBeginning(struct Node** head, struct Student* student)
-{
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = student;
-    newNode->next = *head;
-    *head = newNode;
-}
-
-void insertEnd(struct Node** tail, struct Student* student)
-{
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = student;
-    newNode->next = NULL;
-    (*tail)->next = newNode;
-    *tail = newNode;
-}
-
-void insertPos(struct Node* head, struct Student* student, int pos)
-{
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = student;
-
-    struct Node* current = head;
-    int currentPos = 0;
-    while(current->next && currentPos < pos - 1)
-    {
-        current = current->next;
-        currentPos++;
-    }
-
-    if(currentPos < pos -1) {
-        printf("\nThe position you entered doesn't exist.\nInserting at the end...\n\n");
-    }
-
-    newNode->next = current->next;
-    current->next = newNode;
-}
-
-void printList(struct Node* head)
-{
-    struct Node* current = head;
-    printf("\nList of Students: \n");
-    while(current)
-    {
-        printf("%d", current->data->id);
-        printf(" %s", current->data->name);
-        printf(" %d/%d/%d", current->data->birthdate[0], current->data->birthdate[1], current->data->birthdate[2]);
-        printf(" %d\n", current->data->score);
-        current = current->next;
-    }
-    printf("\n");
-}
-
 struct Student* readStudent(int i)
 {
     struct Student* student = (struct Student*)malloc(sizeof(struct Student));
@@ -89,10 +36,60 @@ struct Student* readStudent(int i)
     return student;
 };
 
-int main()
+void insertBeginningLinkedList(struct Node** head, struct Student* student)
 {
-    printf(" Welcome \n");
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = student;
+    newNode->next = *head;
+    *head = newNode;
+}
 
+void insertEndLinkedList(struct Node** tail, struct Student* student)
+{
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = student;
+    newNode->next = NULL;
+    (*tail)->next = newNode;
+    *tail = newNode;
+}
+
+void insertPosLinkedList(struct Node* head, struct Student* student, int pos)
+{
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = student;
+
+    struct Node* current = head;
+    int currentPos = 0;
+    while(current->next && currentPos < pos - 1)
+    {
+        current = current->next;
+        currentPos++;
+    }
+
+    if(currentPos < pos -1) {
+        printf("\nThe position you entered doesn't exist.\nInserting at the end...\n\n");
+    }
+
+    newNode->next = current->next;
+    current->next = newNode;
+}
+
+void printListLinkedList(struct Node* head)
+{
+    struct Node* current = head;
+    printf("\nList of Students: \n");
+    while(current)
+    {
+        printf("%d", current->data->id);
+        printf(" %s", current->data->name);
+        printf(" %d/%d/%d", current->data->birthdate[0], current->data->birthdate[1], current->data->birthdate[2]);
+        printf(" %d\n", current->data->score);
+        current = current->next;
+    }
+    printf("\n");
+}
+
+void startLinkedList() {
 
     int N;
     printf("Enter Number of students: ");
@@ -117,26 +114,32 @@ int main()
         {
         case 'a':
             student = readStudent(i);
-            insertBeginning(&head, student);
+            insertBeginningLinkedList(&head, student);
             break;
         case 'b':
             printf("Enter Position: ");
             scanf("%d", &pos);
             student = readStudent(i);
-            insertPos(head, student, pos);
+            insertPosLinkedList(head, student, pos);
             break;
         case 'c':
             student = readStudent(i);
-            insertEnd(&tail, student);
+            insertEndLinkedList(&tail, student);
             break;
         default:
             printf("Invalid choice\n");
             i--;
         }
         i++;
-        printList(head);
+        printListLinkedList(head);
     }
+}
 
+int main()
+{
+    printf(" Welcome \n");
+
+    startLinkedList();
 
     return 0;
 }
