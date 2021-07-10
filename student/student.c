@@ -324,11 +324,11 @@ void startDynamicArray()
         scanf("%d", &M);
         N = N + M;
         ptr=(struct Student*)realloc(ptr, N * sizeof(struct Student));
-        if (ptr == NULL)
+        /*if (ptr == NULL)
         {
-            printf("\nFailed to realloc");
+            printf("\nFailed to realloc\n");
         }
-        else
+        else*/
         {
             for (i=N-M; i<N; i++)
             {
