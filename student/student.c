@@ -158,7 +158,7 @@ void enterNStudentsLinked(int* i, int N, struct Node** head, struct Node** tail)
             long seconds = (end.tv_sec - start.tv_sec);
             long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
 
-            printf("\n\nThe elapsed time is %d seconds and %d micros\n", seconds, micros);
+            printf("\n\nThe elapsed time is %ld seconds and %ld micros in inserting at the beginning of the linked list\n", seconds, micros);
 
             break;
         }
@@ -174,7 +174,7 @@ void enterNStudentsLinked(int* i, int N, struct Node** head, struct Node** tail)
             long seconds = (end.tv_sec - start.tv_sec);
             long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
 
-            printf("\n\nThe elapsed time is %d seconds and %d micros\n", seconds, micros);
+            printf("\n\nThe elapsed time is %ld seconds and %ld micros in inserting at position i in the linked list\n", seconds, micros);
 
             break;
         }
@@ -189,7 +189,7 @@ void enterNStudentsLinked(int* i, int N, struct Node** head, struct Node** tail)
             long seconds = (end.tv_sec - start.tv_sec);
             long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
 
-            printf("\n\nThe elapsed time is %d seconds and %d micros\n", seconds, micros);
+            printf("\n\nThe elapsed time is %ld seconds and %ld micros in inserting at the end of the linked list\n", seconds, micros);
             break;
         }
         default:
@@ -240,6 +240,7 @@ void startLinkedList()
 
 void enterStudentDynamicArray(int i, int N, struct Student** ptr)
 {
+    struct timeval start, end;
     struct Student newStud;
     char choice;
     int pos;
@@ -249,19 +250,43 @@ void enterStudentDynamicArray(int i, int N, struct Student** ptr)
     switch (choice)
     {
     case 'a':
+        {
         newStud = readStudent(i);
+        gettimeofday(&start, NULL);
         insertBeginningDynamicArray(*ptr, newStud, N);
+        gettimeofday(&end, NULL);
+        long seconds = (end.tv_sec - start.tv_sec);
+        long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
+
+        printf("\n\nThe elapsed time is %ld seconds and %ld micros in inserting at the beginning of the dynamic array\n", seconds, micros);
         break;
+        }
     case 'b':
+        {
         printf("Enter Position: ");
         scanf("%d", &pos);
         newStud = readStudent(i);
+        gettimeofday(&start, NULL);
         insertPosDynamicArray(*ptr, newStud, N, pos);
+        gettimeofday(&end, NULL);
+        long seconds = (end.tv_sec - start.tv_sec);
+        long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
+
+        printf("\n\nThe elapsed time is %ld seconds and %ld micros in inserting at the a position i in the dynamic array\n", seconds, micros);
         break;
+        }
     case 'c':
+        {
         newStud = readStudent(i);
+        gettimeofday(&start, NULL);
         insertEndDynamicArray(*ptr, newStud, i);
+        gettimeofday(&end, NULL);
+        long seconds = (end.tv_sec - start.tv_sec);
+        long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
+
+        printf("\n\nThe elapsed time is %ld seconds and %ld micros in inserting at the end of the dynaimc array\n", seconds, micros);
         break;
+        }
     default:
         printf("Invalid choice\n");
     }
@@ -324,13 +349,13 @@ int main()
 {
     printf(" Welcome \n");
 
-    printf("Linked List \n");
+    printf("\nLinked List \n");
     startLinkedList();
 
 
 //    printf("\n");
 
-    printf("Dynamic Array \n");
+    printf("\nDynamic Array \n");
     startDynamicArray();
 
     return 0;
